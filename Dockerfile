@@ -14,7 +14,7 @@ ENV JAVA_VERSION_MAJOR=8 \
 ENV PATH=${PATH}:${SBT_HOME}/bin:${JAVA_HOME}/bin:${MAVEN_HOME}/bin
 
 RUN apk upgrade --update && \
-    apk add --update curl ca-certificates bash tar && \
+    apk add --update python3 curl ca-certificates bash tar && \
     for pkg in glibc-${GLIBC_VERSION} glibc-bin-${GLIBC_VERSION} glibc-i18n-${GLIBC_VERSION}; do curl -sSL https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/${pkg}.apk -o /tmp/${pkg}.apk; done && \
     apk add --allow-untrusted /tmp/*.apk && \
     rm -v /tmp/*.apk && \
