@@ -9,7 +9,7 @@ ENV JAVA_VERSION_MAJOR=8 \
     LANG=C.UTF-8 \
     SBT_VERSION=0.13.11 \
     SBT_HOME=/opt/sbt \
-    MAVEN_VERSION=3.3.3 \
+    MAVEN_VERSION=3.3.9 \
     MAVEN_HOME=/opt/maven
 ENV PATH=${PATH}:${SBT_HOME}/bin:${JAVA_HOME}/bin:${MAVEN_HOME}/bin
 
