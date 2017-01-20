@@ -82,7 +82,7 @@ RUN apk add --update --no-cache --virtual .build-deps build-base openssh openssl
   && curl -SL -o mecab-${MECAB_VERSION}.tar.gz ${mecab_url} \
   && tar zxf mecab-${MECAB_VERSION}.tar.gz \
   && cd mecab-${MECAB_VERSION} \
-  && ./configure --enable-utf8-only --with-charset=utf8 \
+  && ./configure --enable-utf8-only --with-charset=utf8 --prefix=/ \
   && make \
   && make install \
   && cd \
@@ -90,7 +90,7 @@ RUN apk add --update --no-cache --virtual .build-deps build-base openssh openssl
   && curl -SL -o mecab-ipadic-${IPADIC_VERSION}.tar.gz ${ipadic_url} \
   && tar zxf mecab-ipadic-${IPADIC_VERSION}.tar.gz \
   && cd mecab-ipadic-${IPADIC_VERSION} \
-  && ./configure --with-charset=utf8 \
+  && ./configure --with-charset=utf8 --prefix=/ \
   && make \
   && make install \
   && curl -sL -o mecab-java-${MECAB_VERSION}.tar.gz ${mecab_java_url} \
