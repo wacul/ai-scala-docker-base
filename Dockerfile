@@ -95,5 +95,5 @@ RUN apk add --update --no-cache --virtual .build-deps build-base openssh openssl
   && make \
   && make install \
   && cd \
-  && rpm -rf /build \
+  && rm -rf /build \
   && apk del .build-deps
