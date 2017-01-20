@@ -73,7 +73,7 @@ ENV MECAB_VERSION 0.996
 ENV IPADIC_VERSION 2.7.0-20070801
 ENV mecab_url https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE
 ENV ipadic_url https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM
-ENV meca_java_url https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7NHo1bEJxd0RnSzg
+ENV mecab_java_url https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7NHo1bEJxd0RnSzg
 ENV build_deps 'curl git bash file sudo openssh'
 ENV dependencies 'openssl'
 
@@ -95,7 +95,7 @@ RUN apk add --update --no-cache --virtual .build-deps build-base openssh openssl
   && ./configure --with-charset=utf8 \
   && make \
   && make install \
-  && curl -SL -o mecab-java-${MECAB_VERSION}.tar.gz ${mecab_java_url} \
+  && curl -sL -o mecab-java-${MECAB_VERSION}.tar.gz ${mecab_java_url} \
   && cd mecab-java-${MECAB_VERSION} \
   && make -j1 -I /usr/java/latest/include/ CXX="g++ -fno-strict-aliasing" \
   && make install \
