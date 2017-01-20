@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM alpine:3.5
 
 ENV JAVA_VERSION_MAJOR=8 \
     JAVA_VERSION_MINOR=92 \
@@ -66,3 +66,36 @@ RUN apk upgrade --update && \
 RUN curl -sL "http://dl.bintray.com/sbt/native-packages/sbt/${SBT_VERSION}/sbt-${SBT_VERSION}.tgz" | gunzip | tar -x -C /opt
 
 RUN mkdir -p ${MAVEN_HOME} && curl -fsSL http://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | gunzip |tar -x -C ${MAVEN_HOME} --strip-components=1
+
+
+
+RUN apk add --update --no-cache build-base
+
+ENV MECAB_VERSION 0.996
+ENV IPADIC_VERSION 2.7.0-20070801
+ENV mecab_url https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE
+ENV ipadic_url https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM
+ENV build_deps 'curl git bash file sudo openssh'
+ENV dependencies 'openssl'
+
+RUN apk add --update --no-cache --virtual .build-deps build-base openssh openssl \
+  && mkdir /build
+  && cd /build \
+  # Install MeCab
+  && curl -SL -o mecab-${MECAB_VERSION}.tar.gz ${mecab_url} \
+  && tar zxf mecab-${MECAB_VERSION}.tar.gz \
+  && cd mecab-${MECAB_VERSION} \
+  && ./configure --enable-utf8-only --with-charset=utf8 \
+  && make \
+  && make install \
+  && cd \
+  # Install IPA dic
+  && curl -SL -o mecab-ipadic-${IPADIC_VERSION}.tar.gz ${ipadic_url} \
+  && tar zxf mecab-ipadic-${IPADIC_VERSION}.tar.gz \
+  && cd mecab-ipadic-${IPADIC_VERSION} \
+  && ./configure --with-charset=utf8 \
+  && make \
+  && make install \
+  && cd \
+  && rpm -rf /build \
+  && apk del .build-deps
