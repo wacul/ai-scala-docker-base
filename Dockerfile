@@ -67,8 +67,6 @@ RUN curl -sL "http://dl.bintray.com/sbt/native-packages/sbt/${SBT_VERSION}/sbt-$
 
 RUN mkdir -p ${MAVEN_HOME} && curl -fsSL http://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | gunzip |tar -x -C ${MAVEN_HOME} --strip-components=1
 
-
-
 RUN apk add --update --no-cache build-base
 
 ENV MECAB_VERSION 0.996
@@ -79,7 +77,7 @@ ENV build_deps 'curl git bash file sudo openssh'
 ENV dependencies 'openssl'
 
 RUN apk add --update --no-cache --virtual .build-deps build-base openssh openssl \
-  && mkdir /build
+  && mkdir /build \
   && cd /build \
   # Install MeCab
   && curl -SL -o mecab-${MECAB_VERSION}.tar.gz ${mecab_url} \
