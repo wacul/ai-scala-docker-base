@@ -96,7 +96,7 @@ RUN apk add --update --no-cache --virtual .build-deps build-base openssh openssl
   && curl -sL -o mecab-java-${MECAB_VERSION}.tar.gz ${mecab_java_url} \
   && tar zxf mecab-java-${MECAB_VERSION}.tar.gz \
   && cd mecab-java-${MECAB_VERSION} \
-  && make -j1 -I /usr/java/latest/include/ CXX="g++ -fno-strict-aliasing" \
+  && make \
   && chmod 644 MeCab.jar && chmod 755 libMeCab.so \
   && mv MeCab.jar ${JAVA_HOME}/lib/ && mv libMeCab.so /lib/ \
   && cd \
