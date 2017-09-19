@@ -101,4 +101,7 @@ RUN apk add --update --no-cache --virtual .build-deps build-base openssh openssl
   && mv MeCab.jar ${JAVA_HOME}/lib/ && mv libMeCab.so /lib/ \
   && cd \
   && rm -rf /build \
+  && cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+  && if [[ ! -e /usr/bin/pip ]]; then ln -sf /usr/bin/pip3 /usr/bin/pip; fi \
+  && if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi \
   && apk del .build-deps
